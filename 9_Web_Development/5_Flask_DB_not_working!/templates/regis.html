@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Registration Page</title>
+
+     <!-- Подключение стилей из файла statick/regis.css -->
+     <link rel="stylesheet" href="{{ url_for('static', filename='regis.css') }}">
+
+     <!-- Подключение шрифта PT Sans -->
+     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans">
+</head>
+<body>
+
+<div id="app">
+
+     <div class="actions">
+          <button id="registerButton" class="active">Signin</button>
+          <button id="signinButton">Login</button>
+     </div>
+
+     <div id="registerForm">
+          <form @submit.prevent='onSubmit' ref='form' action="" class='register-form'>
+               <h2>Register</h2>
+               <div class="form-group" >
+                    <label for="firstname">Name</label>
+                    <input required type="text" v-model.trim='user.firstname' id='firstname' placeholder="Name">
+               </div>
+               <div class="form-group">
+                    <label for="lastname">Surname</label>
+                    <input required type="text" v-model.trim='user.lastname' id='lastname' placeholder="Surname">
+               </div>
+               <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input required type="email" v-model.trim='user.email' id='email' placeholder="Email address">
+               </div>
+               <div class="form-group">
+                    <label for="password">Password</label>
+                    <input required type="password" v-model='user.password' placeholder="Password" id='password'>
+               </div>
+               <div class="form-group">
+                    <label for="passwordcheck">Confirm Password</label>
+                    <input required type="password" v-model='user.passwordChck' placeholder="Confirm Password" id='passwordcheck'>
+               </div>
+               <input type="submit" :disabled='!isFormValid' value='Register'>
+          </form>
+     </div>
+
+     <div id="signinForm" style="display: none;">
+          <form ref='form' @submit.prevent='handleForm' action="" class='signin-form'>
+               <h2>Sign in</h2>
+               <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input required v-model='user.email' type="email" id='email' placeholder="Email address">
+               </div>
+               <div class="form-group">
+                    <label for="password">Password</label>
+                    <input required v-model='user.password' type="password" id='password' placeholder="Password">
+               </div>
+               <input :disabled='!isFormValid' type="submit" value="Signin">
+          </form>
+     </div>
+</div>
+
+<script>
+
+     document.addEventListener('DOMContentLoaded', function () {
+          // Получаем элементы форм
+          var registerForm = document.getElementById('registerForm');
+          var signinForm = document.getElementById('signinForm');
+
+          // Получаем кнопки переключения
+          var registerButton = document.getElementById('registerButton');
+          var signinButton = document.getElementById('signinButton');
+
+          // Функция для переключения на форму регистрации
+          function showRegisterForm() {
+               registerForm.style.display = 'block';
+               signinForm.style.display = 'none';
+          }
+
+          // Функция для переключения на форму входа
+          function showSigninForm() {
+               registerForm.style.display = 'none';
+               signinForm.style.display = 'block';
+          }
+
+          // Назначаем обработчики событий на кнопки
+          registerButton.addEventListener('click', showRegisterForm);
+          signinButton.addEventListener('click', showSigninForm);
+          });
+</script>
+
+</body>
+</html>
+
+

@@ -1,0 +1,1 @@
+KEY = 'A VERY VERY LONG KEY'
